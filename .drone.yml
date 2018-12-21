@@ -6,8 +6,3 @@ steps:
   image: golang
   commands:
   - go build
-  when:
-    branch:
-    - master
-    event:
-    - push
