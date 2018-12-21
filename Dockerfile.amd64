@@ -1,0 +1,3 @@
+From ubuntu:18.04
+COPY manifest-amd64                             /bin/manifest-amd64
+ENTRYPOINT [ "/bin/manifest-amd64" ]
