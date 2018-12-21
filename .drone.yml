@@ -1,29 +1,8 @@
 kind: pipeline
-name: amd64
+name: default
 
 steps:
 - name: build
   image: golang
   commands:
-  - go build -o drone-test
-  
-  when:
-    event:
-    - push
-# ---
-# kind: pipeline
-# name: arm64
-
-# platform:
-#   os: linux
-#   arch: arm64
-
-# steps:
-# - name: build
-#   image: golang
-#   commands:
-#   - go build -o drone-test
-#   - docker build -t jianghang8421/drone-test-arm64 .
-#   when:
-#     event:
-#     - push
+  - go build
