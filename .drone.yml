@@ -1,33 +1,29 @@
 kind: pipeline
 name: amd64
 
-platform:
-  os: linux
-  arch: amd64
-
 steps:
 - name: build
   image: golang
   commands:
   - go build -o drone-test
-  - docker build -t jianghang8421/drone-test-amd64 .
+  
   when:
     event:
     - push
----
-kind: pipeline
-name: arm64
+# ---
+# kind: pipeline
+# name: arm64
 
-platform:
-  os: linux
-  arch: arm64
+# platform:
+#   os: linux
+#   arch: arm64
 
-steps:
-- name: build
-  image: golang
-  commands:
-  - go build -o drone-test
-  - docker build -t jianghang8421/drone-test-arm64 .
-  when:
-    event:
-    - push
+# steps:
+# - name: build
+#   image: golang
+#   commands:
+#   - go build -o drone-test
+#   - docker build -t jianghang8421/drone-test-arm64 .
+#   when:
+#     event:
+#     - push
