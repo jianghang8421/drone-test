@@ -11,7 +11,9 @@ steps:
   commands:
   - go build -o drone-test
   - docker build -t jianghang8421/drone-test-amd64 .
-
+  when:
+    event:
+    - push
 ---
 kind: pipeline
 name: arm64
@@ -26,3 +28,6 @@ steps:
   commands:
   - go build -o drone-test
   - docker build -t jianghang8421/drone-test-arm64 .
+  when:
+    event:
+    - push
