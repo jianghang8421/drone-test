@@ -1,0 +1,22 @@
+#!/bin/bash
+set -e
+
+source $(dirname $0)/version
+
+cd $(dirname $0)/..
+
+mkdir -p bin
+[ "$(uname)" != "Darwin" ] && LINKFLAGS="-extldflags -static -s"
+
+if echo "$VERSION" | grep -q -e '^v.*' ; then 
+    UI_INDEX="local"
+fi
+# PANDARIA change default ui-index to pandaria
+# UI_INDEX=${UI_INDEX:-"https://releases.rancher.com/ui/latest-2.3/index.html"}
+UI_INDEX=${UI_INDEX:-"https://pandaria-ui.s3-ap-northeast-1.amazonaws.com/static-2-3/2.3-fixes/index.html"}
+RKE_VERSION="$(grep -m1 'github.com/rancher/rke' go.mod | awk '{print $2}')"
+
+# Inject Setting values
+DEFAULT_VALUES="{\"ui-index\":\"${UI_INDEX}\",\"rke-version\":\"${RKE_VERSION}\"}"
+
+CGO_ENABLED=0 go build -i -tags k8s -ldflags "-X main.VERSION=$VERSION -X github.com/rancher/rancher/pkg/settings.InjectDefaults=$DEFAULT_VALUES $LINKFLAGS" -o bin/rancher

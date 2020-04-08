@@ -1,3 +1,0 @@
-From ubuntu:18.04
-COPY drone-test                            /bin/manifest-amd64
-ENTRYPOINT [ "/bin/drone-test" ]
