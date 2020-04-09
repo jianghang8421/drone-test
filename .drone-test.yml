@@ -56,6 +56,52 @@ trigger:
   event:
     exclude:
       - promote
+---
+---
+kind: pipeline
+name: default-linux-arm64
+
+platform:
+  os: linux
+  arch: arm64
+
+steps:
+  - name: build
+    image: rancher/dapper:v0.4.2
+    environment:
+      OAUTH_TOKEN:
+        from_secret: github_token
+    commands:
+      - apk add git make curl go=1.12.12-r0 bzr
+      - make -f Makefile.pandaria
+    privileged: true
+    volumes:
+      - name: docker
+        path: /var/run/docker.sock
+    when:
+      event:
+        - push
+        - pull_request
+        - tag
+      ref:
+        exclude:
+          - "refs/tags/*saic*"
+volumes:
+  - name: docker
+    host:
+      path: /var/run/docker.sock
+
+trigger:
+  ref:
+    exclude:
+      - "refs/heads/release/*saic*"
+      - "refs/tags/*saic*"
+  event:
+    exclude:
+      - promote
+
+node:
+  instance: agent-arm64
 
 
 
