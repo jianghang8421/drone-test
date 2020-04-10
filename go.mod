@@ -38,6 +38,7 @@ require (
 	github.com/Azure/go-autorest/autorest v0.9.0
 	github.com/Azure/go-autorest/autorest/adal v0.5.0
 	github.com/DataDog/zstd v1.4.1 // indirect
+	github.com/aliyun/alibaba-cloud-sdk-go v1.61.106
 	github.com/aws/aws-sdk-go v1.20.20
 	github.com/beevik/etree v0.0.0-20171015221209-af219c0c7ea1 // indirect
 	github.com/bep/debounce v1.2.0
