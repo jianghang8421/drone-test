@@ -5,7 +5,7 @@ name: default-windows-ltsc2022
 platform:
   os: windows
   arch: amd64
-  version: 2022
+  version: ltsc2022
 
 steps:
 - name: build
