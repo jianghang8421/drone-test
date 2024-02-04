@@ -1,28 +1,33 @@
+---
 kind: pipeline
-name: amd
+name: default-windows-ltsc2022
 
 platform:
-  os: linux
+  os: windows
   arch: amd64
 
 steps:
 - name: build
-  image: golang
+  pull: default
+  image: rancher/dapper:v0.5.8
+  environment:
+    OAUTH_TOKEN:
+      from_secret: github_token
+    SKIP_TESTS: 1
   commands:
-  - go build
-  - go test
+  - dapper.exe -f Dockerfile-windows-pandaria.dapper ci
+  privileged: true
+  volumes:
+  - name: docker_pipe
+    path: \\\\.\\pipe\\docker_engine
+  when:
+    event:
+    - push
 
----
-kind: pipeline
-name: arm64
+volumes:
+- name: docker_pipe
+  host:
+    path: \\\\.\\pipe\\docker_engine
 
-platform:
-  os: linux
-  arch: arm64
-
-steps:
-- name: build
-  image: golang
-  commands:
-  - go build
-  - go test
+node:
+  instance: agent-win-2022
